@@ -3,44 +3,41 @@ import ui
 import logs
 
 
-def msg_compl(first_r, first_mn, second_r, second_mn, sign):
-    '''
-    Функция получает данные и формирует строку из них
-    '''
-    if first_mn >= 0:
-        data_log = '(' + str(first_r) + ' + ' + str(first_mn) + 'j' + ')' + ' ' + sign + ' ' + '(' + str(second_r)
-    elif first_mn < 0:
-        data_log = '(' + str(first_r) + ' + (' + str(first_mn) + 'j)' + ')' + ' ' + sign + ' ' + '(' + str(second_r)
-    if second_mn >= 0:
-        data_log += ' + ' + str(second_mn) + 'j' + ')'
-    if second_mn < 0:
-        data_log += ' + (' + str(second_mn) + 'j)' + ')'
-    return data_log
+# def msg_compl(first_r, first_mn, second_r, second_mn, sign):
+#     '''
+#     Функция получает данные и формирует строку из них
+#     '''
+#     if first_mn >= 0:
+#         data_log = '(' + str(first_r) + ' + ' + str(first_mn) + 'j' + ')' + ' ' + sign + ' ' + '(' + str(second_r)
+#     elif first_mn < 0:
+#         data_log = '(' + str(first_r) + ' + (' + str(first_mn) + 'j)' + ')' + ' ' + sign + ' ' + '(' + str(second_r)
+#     if second_mn >= 0:
+#         data_log += ' + ' + str(second_mn) + 'j' + ')'
+#     if second_mn < 0:
+#         data_log += ' + (' + str(second_mn) + 'j)' + ')'
+#     return data_log
 
 
 def button_click():
     '''
     Функция запрашивает данные, решает и выводит
     '''
-    name = ui.choice_calc(
-        'Для выбора калькулятора рациональных чисел нажмите 1, для комплексных - 2: ')
+    name = ui.choice_calc('Для выбора калькулятора рациональных чисел нажмите 1, для комплексных - 2: ')
     if name == 1:
         first_r = ui.rational_number('Введите первое рациональное число: ')
         sign = ui.operation('Введите знак операции: (+, -, *, /): ')
         second_r = ui.rational_number('Введите второе рациональное число: ')
         second_mn = 0
         calcul.init_ratio(first_r, second_r)
-        data_log = '' + str(first_r) + ' ' + sign + ' ' + str(second_r)
+        # data_log = str(calcul.x) + '\t' + sign + '\t' + str(calcul.y)
     elif name == 2:
-        first_r = ui.complex_number(
-            'Введите действительную часть первого числа: ')
+        first_r = ui.complex_number('Введите действительную часть первого числа: ')
         first_mn = ui.complex_number('Введите мнимую часть первого числа: ')
         sign = ui.operation('Введите знак операции: (+, -, *, /): ')
-        second_r = ui.complex_number(
-            'Введите действительную часть второго числа: ')
+        second_r = ui.complex_number('Введите действительную часть второго числа: ')
         second_mn = ui.complex_number('Введите мнимую часть второго числа: ')
         calcul.init_compl(first_r, first_mn, second_r, second_mn)
-        data_log = msg_compl(first_r, first_mn, second_r, second_mn, sign)
+        # data_log = str(calcul.x) + '\t' + sign + '\t' + str(calcul.y)
     if calcul.check_dev_null(second_r, second_mn, sign) == True:
         result = 'Деление на 0 невозможно!'
         print(result)
@@ -85,5 +82,6 @@ def button_click():
         #         result = calcul.div()
 
         # data_log = msg_compl(first_r, first_mn, second_r, second_mn, sign)
+    data_log = str(calcul.x) + ' ' + sign + ' ' + str(calcul.y)
     print(f"Для этого примера: {data_log} ответ будет: {result}")
     logs.logger(data_log, result)
